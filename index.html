@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hookah Menu</title>
+<title>Atmos Hookah Menu</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -16,39 +16,40 @@
   --muted: #bdbdbd;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Rubik', sans-serif; }
+* {
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  background: var(--bg);
+  background:
+    linear-gradient(rgba(11,11,15,0.85), rgba(11,11,15,0.85)),
+    url('space-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: var(--text);
 }
 
-/* ---------- HERO ---------- */
+section {
+  padding: 48px 20px;
+}
+
+/* HERO */
 .hero {
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
-  position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(rgba(11,11,15,0.85), rgba(11,11,15,0.85)),
-    url("space-bg.jpg") center / cover no-repeat;
+  gap: 18px;
+  text-align: center;
 }
 
-.logo {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
 .logo img {
-  width: 50%;
-  max-width: 250px;
+  width: 220px;
+  margin: 0 auto 10px;
+  display: block;
 }
-
-h1, h2 { text-align: center; font-weight: 500; }
-p { text-align: center; color: var(--muted); }
 
 .cta {
   margin: 0 auto;
@@ -58,39 +59,13 @@ p { text-align: center; color: var(--muted); }
   border: none;
   color: #000;
   background: linear-gradient(90deg, var(--pink), var(--blue));
-  box-shadow: 0 0 22px var(--pink);
   cursor: pointer;
 }
 
-/* ---------- עשן ---------- */
-.smoke {
-  position: absolute;
-  bottom: -80px;
-  left: 50%;
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%);
-  border-radius: 50%;
-  filter: blur(22px);
-  animation: smokeUp 7s infinite ease-in-out;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-
-.smoke:nth-child(2) { left: 45%; animation-duration: 8s; opacity: 0.6; }
-.smoke:nth-child(3) { left: 55%; animation-duration: 9s; opacity: 0.5; }
-
-@keyframes smokeUp {
-  0% { transform: translate(-50%, 0) scale(0.8); opacity: 0; }
-  30% { opacity: 0.6; }
-  100% { transform: translate(-50%, -260px) scale(1.4); opacity: 0; }
-}
-
-/* ---------- Divider ---------- */
+/* Divider */
 .divider {
   width: 100%;
   height: 2px;
-  margin: 50px 0;
   background: linear-gradient(
     90deg,
     transparent,
@@ -98,88 +73,75 @@ p { text-align: center; color: var(--muted); }
     var(--blue),
     transparent
   );
-  background-size: 200% 100%;
-  animation: moveLine 3s linear infinite;
-  box-shadow: 0 0 12px var(--pink);
+  animation: glow 3s infinite alternate;
 }
 
-@keyframes moveLine {
-  from { background-position: 0% 50%; }
-  to { background-position: 200% 50%; }
+@keyframes glow {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
 }
 
-/* ---------- Languages ---------- */
-section { padding: 48px 20px; }
-
-.languages-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
+/* Language section */
+.lang-section {
+  text-align: center;
 }
 
 .lang-buttons {
   display: flex;
+  justify-content: center;
   gap: 16px;
+  margin-top: 20px;
 }
 
 .lang-buttons button {
-  background: transparent;
-  color: var(--text);
-  padding: 14px 28px;
+  padding: 12px 28px;
   border-radius: 30px;
   border: 2px solid var(--blue);
+  background: transparent;
+  color: var(--text);
+  font-size: 16px;
   cursor: pointer;
-  font-weight: 500;
   transition: all 0.3s ease;
 }
 
-.lang-buttons button:hover {
-  box-shadow: 0 0 14px var(--blue);
-}
-
-/* שפה פעילה */
 .lang-buttons button.active {
   background: linear-gradient(90deg, var(--pink), var(--blue));
   color: #000;
-  box-shadow: 0 0 20px var(--pink);
-  border-color: transparent;
 }
 
-/* ---------- Menus ---------- */
+/* Menus */
 .menu-section {
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.7s ease;
+  display: none;
+  animation: fade 0.4s ease;
 }
 
 .menu-section.active {
-  opacity: 1;
-  max-height: 3000px;
-  transform: translateY(0);
+  display: block;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .menu-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .menu-grid img {
   width: 100%;
-  border-radius: 18px;
+  border-radius: 16px;
   border: 2px solid var(--pink);
-  box-shadow: 0 0 18px rgba(255, 63, 212, 0.45);
 }
 
-/* ---------- Footer ---------- */
+/* Footer */
 footer {
   text-align: center;
-  color: var(--muted);
   font-size: 13px;
+  color: var(--muted);
   padding: 24px;
 }
 </style>
@@ -187,44 +149,32 @@ footer {
 
 <body>
 
-<!-- HERO -->
 <section class="hero">
   <div class="logo">
-    <img src="logo.png" alt="Logo">
+    <img src="logo.png" alt="Atmos Logo">
   </div>
-
   <h1>Hookah Menu</h1>
   <p>Choose your flavor. Choose your vibe.</p>
-
   <button class="cta" onclick="document.getElementById('languages').scrollIntoView({behavior:'smooth'})">
     View Menu
   </button>
-
-  <div class="smoke"></div>
-  <div class="smoke"></div>
-  <div class="smoke"></div>
 </section>
 
-<!-- LANGUAGES -->
-<section id="languages">
-  <div class="divider"></div>
+<div class="divider"></div>
 
-  <div class="languages-wrapper">
-    <h2>Select Your Language</h2>
-
-    <div class="lang-buttons">
-      <button onclick="showMenu('he', this)">HE</button>
-      <button onclick="showMenu('en', this)">EN</button>
-      <button onclick="showMenu('ru', this)">RU</button>
-    </div>
+<section id="languages" class="lang-section">
+  <h2>Select Your Language</h2>
+  <div class="lang-buttons">
+    <button onclick="showMenu('he', this)">HE</button>
+    <button onclick="showMenu('en', this)">EN</button>
+    <button onclick="showMenu('ru', this)">RU</button>
   </div>
-
-  <div class="divider"></div>
 </section>
 
-<!-- MENUS -->
+<div class="divider"></div>
+
 <section id="he" class="menu-section">
-  <h2>תפריט נרגילות – עברית</h2>
+  <h2>תפריט – עברית</h2>
   <div class="menu-grid">
     <img src="he-1.jpg">
     <img src="he-2.jpg">
@@ -232,7 +182,7 @@ footer {
 </section>
 
 <section id="en" class="menu-section">
-  <h2>Hookah Menu – English</h2>
+  <h2>Menu – English</h2>
   <div class="menu-grid">
     <img src="en-1.jpg">
     <img src="en-2.jpg">
@@ -240,7 +190,7 @@ footer {
 </section>
 
 <section id="ru" class="menu-section">
-  <h2>Меню кальяна – Русский</h2>
+  <h2>Меню – Русский</h2>
   <div class="menu-grid">
     <img src="ru-1.jpg">
     <img src="ru-2.jpg">
@@ -251,22 +201,25 @@ footer {
 
 <script>
 function showMenu(lang, btn) {
-  document.querySelectorAll('.menu-section').forEach(m => m.classList.remove('active'));
-  document.querySelectorAll('.lang-buttons button').forEach(b => b.classList.remove('active'));
-
+  document.querySelectorAll('.menu-section').forEach(s =>
+    s.classList.remove('active')
+  );
   document.getElementById(lang).classList.add('active');
+
+  document.querySelectorAll('.lang-buttons button').forEach(b =>
+    b.classList.remove('active')
+  );
   btn.classList.add('active');
 
-  localStorage.setItem('selectedLanguage', lang);
-  document.getElementById(lang).scrollIntoView({ behavior: 'smooth' });
+  localStorage.setItem('lang', lang);
 }
 
-// טעינת שפה אחרונה
-document.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('selectedLanguage') || 'he';
-  const btn = document.querySelector(.lang-buttons button[onclick*="${saved}"]);
-  if (btn) showMenu(saved, btn);
-});
+const savedLang = localStorage.getItem('lang');
+if (savedLang) {
+  const btn = [...document.querySelectorAll('.lang-buttons button')]
+    .find(b => b.textContent.toLowerCase() === savedLang);
+  if (btn) showMenu(savedLang, btn);
+}
 </script>
 
 </body>
