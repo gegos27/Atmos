@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hookah Menu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0b0b0f;
+  --pink: #ff3fd4;
+  --blue: #2de2ff;
+  --text: #ffffff;
+  --muted: #bdbdbd;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+section {
+  padding: 48px 20px;
+}
+
+h1, h2 {
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+p {
+  text-align: center;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* Accessibility */
+.accessibility-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 999;
+  background: linear-gradient(90deg, var(--pink), var(--blue));
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #000;
+}
+
+.accessibility-menu {
+  display: none;
+  position: fixed;
+  top: 70px;
+  right: 16px;
+  background: #111;
+  border-radius: 12px;
+  padding: 12px;
+  z-index: 999;
+  width: 180px;
+}
+
+.accessibility-menu button {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 50%;
+  max-width: 250px;
+}
+
+/* Hero */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  background: linear-gradient(180deg, rgba(11,11,15,0.95), rgba(11,11,15,0.7));
+}
+
+/* CTA */
+.cta {
+  margin: 0 auto;
+  padding: 14px 36px;
+  font-size: 18px;
+  border-radius: 40px;
+  border: none;
+  color: #000;
+  background: linear-gradient(90deg, var(--pink), var(--blue));
+  box-shadow: 0 0 22px var(--pink);
+  cursor: pointer;
+}
+
+/* Animated Divider */
+.divider {
+  width: 100%;
+  height: 2px;
+  margin: 50px 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--pink),
+    var(--blue),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: moveLine 3s linear infinite;
+  box-shadow: 0 0 12px var(--pink);
+}
+
+@keyframes moveLine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Languages Section */
+.languages-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.lang-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.lang-buttons a {
+  text-decoration: none;
+  color: var(--text);
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: 2px solid var(--blue);
+  box-shadow: 0 0 14px var(--blue);
+  font-weight: 500;
+}
+
+/* Menu images */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.menu-grid img {
+  width: 100%;
+  border-radius: 18px;
+  border: 2px solid var(--pink);
+  box-shadow: 0 0 18px rgba(255, 63, 212, 0.45);
+}
+
+/* Instagram */
+.instagram {
+  text-align: center;
+}
+
+.instagram a {
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px solid var(--blue);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 24px;
+}
+
+/* Accessibility states */
+.large-text {
+  font-size: 1.15em;
+}
+
+.high-contrast {
+  background: #000;
+  color: #fff;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Accessibility -->
+<button class="accessibility-btn" onclick="toggleAccessibility()">A</button>
+<div class="accessibility-menu" id="accessMenu">
+  <button onclick="toggleTextSize()">הגדלת טקסט</button>
+  <button onclick="toggleContrast()">ניגודיות גבוהה</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="logo">
+    <img src="logo.png" alt="Logo">
+  </div>
+
+  <h1>Hookah Menu</h1>
+  <p>Choose your flavor. Choose your vibe.</p>
+
+  <button class="cta" onclick="document.getElementById('languages').scrollIntoView({behavior:'smooth'})">
+    View Menu
+  </button>
+</section>
+
+<!-- LANGUAGES -->
+<section id="languages">
+  <div class="divider"></div>
+
+  <div class="languages-wrapper">
+    <h2>Select Your Language</h2>
+
+    <div class="lang-buttons">
+      <a href="#he">HE</a>
+      <a href="#en">EN</a>
+      <a href="#ru">RU</a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+</section>
+
+<!-- HEBREW -->
+<section id="he">
+  <h2>תפריט נרגילות – עברית</h2>
+  <div class="menu-grid">
+    <img src="he-1.jpg">
+    <img src="he-2.jpg">
+  </div>
+</section>
+
+<!-- ENGLISH -->
+<section id="en">
+  <h2>Hookah Menu – English</h2>
+  <div class="menu-grid">
+    <img src="en-1.jpg">
+    <img src="en-2.jpg">
+  </div>
+</section>
+
+<!-- RUSSIAN -->
+<section id="ru">
+  <h2>Меню кальяна – Русский</h2>
+  <div class="menu-grid">
+    <img src="ru-1.jpg">
+    <img src="ru-2.jpg">
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="instagram">
+  <p>Follow us on Instagram</p>
+  <a href="https://www.instagram.com/atmos_hookah_lounge/" target="_blank">
+    @atmos_hookah_lounge
+  </a>
+</section>
+
+<footer>© Atmos Hookah Lounge</footer>
+
+<script>
+function toggleAccessibility() {
+  const menu = document.getElementById('accessMenu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+function toggleTextSize() {
+  document.body.classList.toggle('large-text');
+}
+
+function toggleContrast() {
+  document.body.classList.toggle('high-contrast');
+}
+</script>
+
+</body>
+</html>
