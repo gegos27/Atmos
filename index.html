@@ -6,6 +6,7 @@
 <title>Atmos Hookah Menu</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
 :root {
@@ -24,11 +25,15 @@
 }
 
 body {
-  background:
-    linear-gradient(rgba(11,11,15,0.85), rgba(11,11,15,0.85)),
-    url("space-bg.jpg") no-repeat center center fixed;
-  background-size: cover;
+  background-color: var(--bg);
   color: var(--text);
+  /* שיניתי כאן את נתיב התמונה שיתאים לשם הקובץ המקובל */
+  background-image: linear-gradient(rgba(11,11,15,0.8), rgba(11,11,15,0.95)), 
+                    url("space-bg.jpg"); 
+  background-size: cover;
+  background-position: top center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 section {
@@ -41,6 +46,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 18px;
   text-align: center;
 }
@@ -60,6 +66,8 @@ section {
   color: #000;
   background: linear-gradient(90deg, var(--pink), var(--blue));
   cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(45, 226, 255, 0.4);
 }
 
 /* Divider */
@@ -107,12 +115,15 @@ section {
 .lang-buttons button.active {
   background: linear-gradient(90deg, var(--pink), var(--blue));
   color: #000;
+  border-color: transparent;
 }
 
 /* Menus */
 .menu-section {
   display: none;
   animation: fade 0.4s ease;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .menu-section.active {
@@ -135,14 +146,39 @@ section {
   width: 100%;
   border-radius: 16px;
   border: 2px solid var(--pink);
+  box-shadow: 0 5px 15px rgba(255, 63, 212, 0.2);
 }
 
-/* Footer */
+/* Footer & Instagram */
 footer {
   text-align: center;
+  padding: 40px 24px;
+  background: rgba(0,0,0,0.5);
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 18px;
+  margin-bottom: 15px;
+  padding: 10px 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  transition: 0.3s;
+}
+
+.social-link:hover {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  border-color: transparent;
+}
+
+.copyright {
   font-size: 13px;
   color: var(--muted);
-  padding: 24px;
+  display: block;
 }
 </style>
 </head>
@@ -174,37 +210,50 @@ footer {
 <div class="divider"></div>
 
 <section id="he" class="menu-section">
-  <h2>תפריט – עברית</h2>
+  <h2 style="text-align: center; margin-bottom: 20px;">תפריט – עברית</h2>
   <div class="menu-grid">
-    <img src="he-1.jpg">
-    <img src="he-2.jpg">
+    <img src="he-1.jpg" alt="Menu page 1">
+    <img src="he-2.jpg" alt="Menu page 2">
   </div>
 </section>
 
 <section id="en" class="menu-section">
-  <h2>Menu – English</h2>
+  <h2 style="text-align: center; margin-bottom: 20px;">Menu – English</h2>
   <div class="menu-grid">
-    <img src="en-1.jpg">
-    <img src="en-2.jpg">
+    <img src="en-1.jpg" alt="Menu page 1">
+    <img src="en-2.jpg" alt="Menu page 2">
   </div>
 </section>
 
 <section id="ru" class="menu-section">
-  <h2>Меню – Русский</h2>
+  <h2 style="text-align: center; margin-bottom: 20px;">Меню – Русский</h2>
   <div class="menu-grid">
-    <img src="ru-1.jpg">
-    <img src="ru-2.jpg">
+    <img src="ru-1.jpg" alt="Menu page 1">
+    <img src="ru-2.jpg" alt="Menu page 2">
   </div>
 </section>
 
-<footer>© Atmos Hookah Lounge</footer>
+<footer>
+  <a href="https://www.instagram.com/atmos_hookah_lounge/" target="_blank" class="social-link">
+    <i class="fab fa-instagram"></i>
+    <span>Follow us on Instagram</span>
+  </a>
+  <span class="copyright">© 2024 Atmos Hookah Lounge</span>
+</footer>
 
 <script>
 function showMenu(lang, btn) {
   document.querySelectorAll('.menu-section').forEach(s =>
     s.classList.remove('active')
   );
-  document.getElementById(lang).classList.add('active');
+  const target = document.getElementById(lang);
+  if(target) {
+    target.classList.add('active');
+    // גלילה קלה לתפריט שנפתח
+    setTimeout(() => {
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
 
   document.querySelectorAll('.lang-buttons button').forEach(b =>
     b.classList.remove('active')
@@ -214,12 +263,18 @@ function showMenu(lang, btn) {
   localStorage.setItem('lang', lang);
 }
 
-const savedLang = localStorage.getItem('lang');
-if (savedLang) {
-  const btn = [...document.querySelectorAll('.lang-buttons button')]
-    .find(b => b.textContent.toLowerCase() === savedLang);
-  if (btn) showMenu(savedLang, btn);
-}
+// טעינת שפה שמורה
+window.onload = () => {
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      const buttons = document.querySelectorAll('.lang-buttons button');
+      buttons.forEach(btn => {
+          if(btn.textContent.toLowerCase() === savedLang) {
+              showMenu(savedLang, btn);
+          }
+      });
+    }
+};
 </script>
 
 </body>
